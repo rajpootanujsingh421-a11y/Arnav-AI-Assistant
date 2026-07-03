@@ -2,35 +2,49 @@ from datetime import datetime
 import os
 import webbrowser
 from commands import *
+from speaker import speak
 def get_response(message):
-    
+ 
     message = message.lower().strip()
     
     if message == "time":
         current_time = datetime.now().strftime("%I:%M %p")
+        response = f"Current Time is {current_time}"
+        speak(response)
+        return response
         return f"⌚ Current Time: {current_time}"
     
     if message == "open notepad":
-        return open_notepad()
-    
+        response = open_notepad
+        speak(response)
+        return response
+
     if message == "open chrome":
-        return open_chrome()
+        response = open_chrome()
+        speak(response)
+        return response
     
     if message == "open youtube":
-        return open_youtube()
+        response = open_youtube()   
+        speak(response)
+        return response
     
     if message == "open github":
-        return open_github()
+        response =  open_github()
+        speak(response)
+        return response
 
     responses = {           
         "hello": "Hello Anuj! 👋",
         "hi": "Hi Bhai ❤️", 
-        "how are you": "Main mast hoon 😎, tum batao",
+        "how are you": "Main mast hoon 😎, tum batao",  
         "thanks": "Always bhai ❤️",
         "bye": "Bye Anuj! Coding mat chhodna. 👊"
-    }
+    }   
     
-    return responses.get(
+    response = responses.get(
         message,
-        "Sorry bhai, ye mujhe abhi nahi aata. 😅"
+        "Sorry bhai,ye mujhe abhi nahi aata. 😅"
     )
+    speak(response) 
+    return response

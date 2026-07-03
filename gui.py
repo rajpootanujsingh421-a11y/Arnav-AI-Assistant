@@ -1,7 +1,7 @@
 import tkinter as tk
 from assistant import get_response
 from voice import listen
-
+import threading
 
 def start_app():
 
@@ -37,7 +37,22 @@ def start_app():
             chat_box.insert(tk.END, f"🤖 Arnav: {response}\n\n")
             chat_box.config(state="disabled")
             chat_box.see(tk.END)
-
+    
+    def start_listening():
+        thread = threading.Thread(target=voice_loop)
+        thread.daemon = True
+        thread.start()
+    
+    def voice_loop():
+        while True:
+            command = listen()
+            if command:
+                chat_box.config(state="normal")
+                chat_box.insert(tk.END,f"👤 You: {command}\n")
+                response = get_response (command)
+                chat_box.insert(tk.END,f"🤖 Arnav: {response}\n\n")
+                chat_box.config(state="disabled")
+                chat_box.see(tk.END)
 
     title = tk.Label(
         root,
@@ -46,7 +61,7 @@ def start_app():
         fg="white",
         bg="#1e1e1e"
     )
-
+    
     title.pack(pady=20)
 
 
@@ -93,7 +108,7 @@ def start_app():
         root,
         text ="🎤",
         font =("Arial",14),
-        command=voice_command
+        command=start_listening
     )    
     
     mic_button.pack(side="left",padx=10)
