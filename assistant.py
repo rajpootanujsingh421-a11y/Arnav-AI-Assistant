@@ -6,8 +6,6 @@ from speaker import speak
 from language import is_english
 from memory import remember,recall
 
-print("Memory imported successfully")
-
 def get_response(message):
     message = message.lower().strip()
     print(message)
@@ -60,24 +58,38 @@ def get_response(message):
         speak(response)
         return(response)
     
-    if message.startswith("remember my name is"):
-        name = message.replace("remember my name is","").strip()
-        remember("name",name)
-        response = f"Okay bhai ❤️, I will remember your name is {name}."
-        speak(response)
+    if message.startswith("remember"):
+        text = message.replace("remember ", "").strip()
+        parts = text.split(" is ")
+        
+        if len(parts)<2:    
+            response = "Bhai, mujhe samajh nahi aaya. 'Remember ... is ...' format me bolo."  
+            speak(response)
+            return response
+        
+        key = parts[0].strip()
+        value = parts[1].strip()
+        print("KEY =", key)
+        print("VALUE =", value)
+        remember(key, value)
+        response = f"Okay bhai ❤️, I will remember {key} is {value}."
+        speak(response)     
         return response
     
-    if "what is my name" in message:
-        name = recall("name")
-        
-        if name:
-            response = f"Your name is {name}."
-            
+    if message.startswith("what is"):
+        text = message.replace("what is ", "").strip()
+        key = text
+        print("key:", key)
+        value = recall(key)
+        print("Value:", value)
+        if value:
+            response = f"Your {key.replace('my ', '')} is {value}."
         else:
-            response = "Sorry bhai, mujhe abhi tumhara naam yaad nahi hai."
-        speak(response)
-        return response
+            response = "Sorry bhai, mujhe ye yaad nahi hai."
             
+        speak(response)
+        return(response)
+
     responses_hi = {
         "hello": "Namaste bhai! ❤️",
     "hi": "Haan bhai bolo 😊",
