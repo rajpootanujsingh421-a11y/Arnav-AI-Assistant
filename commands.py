@@ -1,5 +1,7 @@
 import os
 import webbrowser
+import pyautogui
+from datetime import datetime
 
 def open_notepad():
     os.startfile("notepad.exe")
@@ -20,3 +22,12 @@ def open_github():
 def search_google(query):
     webbrowser.open(f"https://www.google.com/search?q={query}")
     return f"Searching Google for {query}"
+
+def take_screenshot():
+    os.makedirs("screenshot", exist_ok=True)
+    filename = os.path.join(
+        "screenshot",
+        datetime.now().strftime("Screenshot_%Y%m%d_%H%M%S.png")
+    )
+    pyautogui.screenshot(filename)
+    return f"Screenshot saved as {filename}"

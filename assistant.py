@@ -6,6 +6,7 @@ from speaker import speak
 def get_response(message):
 
     message = message.lower().strip()
+    print(message)
     
     if message.startswith("search"):
         query = message.replace("search ","")
@@ -21,7 +22,7 @@ def get_response(message):
         return f"⌚ Current Time: {current_time}"
     
     if message == "open notepad":
-        response = open_notepad
+        response = open_notepad()
         speak(response)
         return response
 
@@ -37,6 +38,11 @@ def get_response(message):
     
     if message == "open github":
         response =  open_github()
+        speak(response)
+        return response
+    
+    if "screenshot" in message:
+        response = take_screenshot()
         speak(response)
         return response
 
