@@ -16,3 +16,7 @@ def open_youtube():
 def open_github():
     webbrowser.open("https://www.github.com")
     return "Opening Github...💻"
+
+def search_google(query):
+    webbrowser.open(f"https://www.google.com/search?q={query}")
+    return f"Searching Google for {query}"

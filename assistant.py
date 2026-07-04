@@ -4,8 +4,14 @@ import webbrowser
 from commands import *
 from speaker import speak
 def get_response(message):
- 
+
     message = message.lower().strip()
+    
+    if message.startswith("search"):
+        query = message.replace("search ","")
+        response = search_google(query)
+        speak(response)
+        return response
     
     if message == "time":
         current_time = datetime.now().strftime("%I:%M %p")
