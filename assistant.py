@@ -3,8 +3,12 @@ import os
 import webbrowser
 from commands import *
 from speaker import speak
-def get_response(message):
+from language import is_english
+from memory import remember,recall
 
+print("Memory imported successfully")
+
+def get_response(message):
     message = message.lower().strip()
     print(message)
     
@@ -51,17 +55,53 @@ def get_response(message):
         speak(response)
         return response
     
-    responses = {           
-        "hello": "Hello Anuj! 👋",
-        "hi": "Hi Bhai ❤️", 
-        "how are you": "Main mast hoon 😎, tum batao",  
-        "thanks": "Always bhai ❤️",
-        "bye": "Bye Anuj! Coding mat chhodna. 👊"
-    }   
+    if "date" in message or "today" in message:
+        response = get_date()
+        speak(response)
+        return(response)
     
-    response = responses.get(
+    if message.startswith("remember my name is"):
+        name = message.replace("remember my name is","").strip()
+        remember("name",name)
+        response = f"Okay bhai ❤️, I will remember your name is {name}."
+        speak(response)
+        return response
+    
+    if "what is my name" in message:
+        name = recall("name")
+        
+        if name:
+            response = f"Your name is {name}."
+            
+        else:
+            response = "Sorry bhai, mujhe abhi tumhara naam yaad nahi hai."
+        speak(response)
+        return response
+            
+    responses_hi = {
+        "hello": "Namaste bhai! ❤️",
+    "hi": "Haan bhai bolo 😊",
+    "thanks": "Koi baat nahi bhai ❤️",
+    "bye": "Theek hai bhai, phir milte hain 👋"
+}
+    
+    responses_en = {
+    "hello": "Hello Anuj! 👋",
+    "hi": "Hi Bro! ❤️",
+    "thanks": "You're welcome!",
+    "bye": "Bye Anuj! 👋"
+}
+    if is_english(message):
+        response = responses_en.get(
         message,
-        "Sorry bhai,ye mujhe abhi nahi aata. 😅"
+        "Sorry, I don't know that yet."
     )
-    speak(response) 
+    else:
+        response = responses_hi.get(
+            message,
+            "Sorry bhai, ye mujhe abhi nahi aata."
+    )
+
+    speak(response)
     return response
+    

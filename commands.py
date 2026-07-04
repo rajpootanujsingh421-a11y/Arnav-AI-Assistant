@@ -3,6 +3,10 @@ import webbrowser
 import pyautogui
 from datetime import datetime
 
+def get_date():
+    today = datetime.now().strftime("%A, %d %B %Y")
+    return f"Today is {today}"
+
 def open_notepad():
     os.startfile("notepad.exe")
     return "Opening Notepad...📝"
