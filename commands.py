@@ -31,3 +31,8 @@ def take_screenshot():
     )
     pyautogui.screenshot(filename)
     return f"Screenshot saved as {filename}"
+
+def open_calculator():
+        os.system("calc")
+        return "Opening Calculator... 🧮"
+    

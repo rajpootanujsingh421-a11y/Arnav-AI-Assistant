@@ -21,22 +21,22 @@ def get_response(message):
         return response
         return f"⌚ Current Time: {current_time}"
     
-    if message == "open notepad":
+    if "notepad" in message:
         response = open_notepad()
         speak(response)
         return response
 
-    if message == "open chrome":
+    if "chrome" in message:
         response = open_chrome()
         speak(response)
         return response
     
-    if message == "open youtube":
+    if "youtube" in message:
         response = open_youtube()   
         speak(response)
         return response
     
-    if message == "open github":
+    if "github" in message:
         response =  open_github()
         speak(response)
         return response
@@ -45,7 +45,12 @@ def get_response(message):
         response = take_screenshot()
         speak(response)
         return response
-
+    
+    if "calculator" in message or "calc" in message:
+        response = open_calculator()
+        speak(response)
+        return response
+    
     responses = {           
         "hello": "Hello Anuj! 👋",
         "hi": "Hi Bhai ❤️", 
