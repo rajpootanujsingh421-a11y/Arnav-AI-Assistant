@@ -7,6 +7,8 @@ from language import is_english
 from memory import remember,recall
 from weather import get_weather
 from news import get_news
+from battery import get_battery
+from system_info import get_system_info
 
 def get_response(message):
     message = message.lower().strip()
@@ -63,6 +65,16 @@ def get_response(message):
     if "weather" in message:
         response = get_weather("Bhopal")
         speak(response)
+        return response
+    
+    if "battery" in message:
+        response = get_battery()
+        speak(response)
+        return response
+    
+    if "system" in message or "system status" in message:
+        response = get_system_info()
+        speak("Bhai, ye raha system status.")
         return response
     
     if "news" in message:
