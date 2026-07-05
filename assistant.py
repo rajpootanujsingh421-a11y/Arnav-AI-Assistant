@@ -5,6 +5,7 @@ from commands import *
 from speaker import speak
 from language import is_english
 from memory import remember,recall
+from weather import get_weather
 
 def get_response(message):
     message = message.lower().strip()
@@ -57,6 +58,11 @@ def get_response(message):
         response = get_date()
         speak(response)
         return(response)
+    
+    if "weather" in message:
+        response = get_weather("Bhopal")
+        speak(response)
+        return response
     
     if message.startswith("remember"):
         text = message.replace("remember ", "").strip()
