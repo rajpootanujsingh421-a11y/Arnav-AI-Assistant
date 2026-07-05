@@ -15,5 +15,3 @@ def get_weather(city):
     description = data["weather"][0]["description"]
     
     return f"{city} me abhi {temperature}°C hai aur {description} hai."
-
-print(get_weather("Bhopal"))

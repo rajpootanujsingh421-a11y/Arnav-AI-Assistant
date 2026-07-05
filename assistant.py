@@ -6,6 +6,7 @@ from speaker import speak
 from language import is_english
 from memory import remember,recall
 from weather import get_weather
+from news import get_news
 
 def get_response(message):
     message = message.lower().strip()
@@ -62,6 +63,22 @@ def get_response(message):
     if "weather" in message:
         response = get_weather("Bhopal")
         speak(response)
+        return response
+    
+    if "news" in message:
+    
+        headlines = get_news()
+
+        if isinstance(headlines, str):
+            speak(headlines)
+            return headlines
+
+        response = "📰 Top Technology News:\n\n"
+
+        for i, news in enumerate(headlines, 1):
+            response += f"{i}. {news}\n\n"
+            
+        speak("Bhai, aaj ki top technology news suno.")
         return response
     
     if message.startswith("remember"):
